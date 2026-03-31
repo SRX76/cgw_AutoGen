@@ -1,0 +1,8 @@
+Recordings
+Library
+Logs
+obj
+/Unity/Config
+/Unity/*.csproj
+/Unity/UserSettings
+/Unity/Temp
