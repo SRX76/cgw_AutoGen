@@ -17,7 +17,6 @@ public class Boot : MonoBehaviour
 
     public ObiSolver obiSolver;
     public GameObject camRoot;
-    public GameObject goPfbObi;
 
     private void Awake()
     {
@@ -32,24 +31,20 @@ public class Boot : MonoBehaviour
         Application.targetFrameRate = 30;
     }
 
-    void Start()
+    IEnumerator Start()
     {
-        StartCoroutine(CoroutineEndFrame());
-
-        //moduleScene.LoadScene();
         fsmMachine.SwitchState(new FsmState_LoadScene(1));
+
+        var waitForEndOfFrame = new WaitForEndOfFrame();
+        while (true)
+        {
+            yield return waitForEndOfFrame;
+            EventCenter.OnFrameEnd?.Invoke();
+        }
     }
     private void Update()
     {
         EventCenter.OnUpdate?.Invoke(Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //moduleSoftBody.MoveNextGO();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //moduleSoftBody.SwitchSoftBody();
-        }
     }
     private void LateUpdate()
     {
@@ -64,17 +59,4 @@ public class Boot : MonoBehaviour
     {
         EventCenter.OnAppQuit?.Invoke();
     }
-
-    IEnumerator CoroutineEndFrame()
-    {
-        yield return null;
-        var waitForEndOfFrame = new WaitForEndOfFrame();
-        while (true)
-        {
-            yield return waitForEndOfFrame;
-            EventCenter.OnFrameEnd?.Invoke();
-        }
-
-    }
-
 }

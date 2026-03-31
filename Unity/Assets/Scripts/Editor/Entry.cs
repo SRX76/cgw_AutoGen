@@ -17,26 +17,25 @@ public class Entry
     static readonly string Config_BPFile = "Config/bps.txt";
 
     [MenuItem("Tools/Entry")]
-    [MenuItem("Tools/检测模型文件并创建对应的蓝图数据")]
     static void AutoEntry()
     {
         //这个是fbx作为输入的流程入口
         EditorSceneManager.OpenScene("Assets/Scenes/Boot.unity", OpenSceneMode.Single);
-        //CheackFolderPath();
-        //var meshFiles = FindsMeshFiles(RootPath_Mesh);
-        //CheckAssetImporter(meshFiles);
-        //StringBuilder sb = new StringBuilder();
-        //foreach (var file in meshFiles)
-        //{
-        //    if (CreateBluePrintAsset(file, false))
-        //    {
-        //        sb.AppendLine(GetBPFile(file));
-        //    }
-        //}
-        //File.WriteAllText(Config_BPFile, sb.ToString());
+        CheackFolderPath();
+        var meshFiles = FindsMeshFiles(RootPath_Mesh);
+        CheckAssetImporter(meshFiles);
+        StringBuilder sb = new StringBuilder();
+        foreach (var file in meshFiles)
+        {
+            if (CreateBluePrintAsset(file, false))
+            {
+                sb.AppendLine(GetBPFile(file));
+            }
+        }
+        File.WriteAllText(Config_BPFile, sb.ToString());
 
         EditorApplication.isPlaying = true;
-
+        BeginRecorder();
         //RecorderDemo.AutoRecorder();
     }
     [MenuItem("Tools/创建配置文件")]
@@ -69,7 +68,7 @@ public class Entry
     [MenuItem("Tools/预制体流程入口")]
     static void EntryByPrefab()
     {
-        //EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Single);
+        EditorSceneManager.OpenScene("Assets/Scenes/Boot.unity", OpenSceneMode.Single);
         CheackFolderPath();
         var prefabs = FindModelPfb(RootPath_Prefab);
         CleanErrorPrefabs(ref prefabs);
@@ -83,7 +82,13 @@ public class Entry
             }
         }
         File.WriteAllText(Config_BPFile, sb.ToString());
-        RecorderDemo.AutoRecorder();
+        BeginRecorder();
+        //RecorderDemo.AutoRecorder();
+    }
+
+    static void BeginRecorder()
+    {
+        EditorApplication.isPlaying = true;
     }
 
     #region 模型处理

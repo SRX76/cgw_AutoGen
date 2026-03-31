@@ -284,8 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obiSolver: {fileID: 1272227374}
   camRoot: {fileID: 221536564}
-  goPfbObi: {fileID: 4926353287583006729, guid: 0eb46e26204e8c1499507fa1e0da236d,
-    type: 3}
+  goPfbObi: {fileID: 0}
 --- !u!4 &214581025
 Transform:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using Obi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class SingleModule<T>
@@ -41,11 +42,22 @@ public class ModuleSoftBody : SingleModule<ModuleSoftBody>
     public ObiSoftbodySurfaceBlueprint CurBP { get; private set; }
     public void Init()
     {
-        goMesh = new List<string>() { "goPfb__1", "goPfb__2", "goPfb__3", "goPfb__4" };
+        string cfgBpFile = "Config/bps.txt";
+        var arr = File.ReadAllLines(cfgBpFile);
+        goMesh = new List<string>(arr.Length);
+        foreach (var item in arr)
+        {
+            if (!string.IsNullOrEmpty(item))
+            {
+                goMesh.Add(item);
+            }
+
+        }
+        //goMesh = new List<string>() { "goPfb__1", "goPfb__2", "goPfb__3", "goPfb__4" };
         //EventCenter.OnLoadSceneFinished -= OnLoadSceneFinished;
         //EventCenter.OnLoadSceneFinished += OnLoadSceneFinished;
-        GoObiPfb = Boot.Instance.goPfbObi;
-        //GoObiPfb = LoadAsset<GameObject>(ObiPfbPath);
+        //GoObiPfb = Boot.Instance.goPfbObi;
+        GoObiPfb = LoadAsset<GameObject>(ObiPfbPath);
         GoObiPfb.SetActive(false);
     }
 
@@ -79,6 +91,7 @@ public class ModuleSoftBody : SingleModule<ModuleSoftBody>
         if (points.Count > 0)
         {
             var root = Boot.Instance.obiSolver.transform;
+
             CreateMeshGo(root, points[0].position);
         }
 
@@ -102,19 +115,25 @@ public class ModuleSoftBody : SingleModule<ModuleSoftBody>
     public void CreateMeshGo(Transform root, Vector3 pos)
     {
         CleanGameObject();
-        if (CurGoMesh != null)
-        {
-            materials.Clear();
-            GameObject.DestroyImmediate(CurGoMesh);
-        }
+
         string fileName = goMesh[Index];
         LoadMesh_GO(fileName);
         if (GoPfb != null)
         {
-            var go = GameObject.Instantiate(GoPfb, root);
+            //创建对应的软体
+            CurGoSoftBody = GameObject.Instantiate(GoObiPfb, root);
+            CurGoSoftBody.transform.position = pos;
+            CurGoSoftBody.GetComponent<SkinnedMeshRenderer>().sharedMaterials = materials.ToArray();
+            var softbody = CurGoSoftBody.GetComponent<ObiSoftbody>();
+            softbody.softbodyBlueprint = CurBP;
+            CurGoSoftBody.SetActive(true);
+
+            //创建征程模型
+            var go = GameObject.Instantiate(GoPfb, CurGoSoftBody.transform);
             go.transform.position = pos;
             go.SetActive(true);
             CurGoMesh = go;
+
         }
     }
 

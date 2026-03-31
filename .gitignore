@@ -6,3 +6,5 @@ obj
 /Unity/*.csproj
 /Unity/UserSettings
 /Unity/Temp
+/Unity/*.sln
+/Unity/.vs

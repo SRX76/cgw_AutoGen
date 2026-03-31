@@ -38,13 +38,10 @@ public class FsmState_Record_Process : FsmState_Record
 
         vCam_Softbody = camRoot.Find("Camera/Camera_Main").GetComponent<Camera>();
         vCam_Solid = camRoot.Find("Camera/Camera_Solid").GetComponent<Camera>();
-        rt_solid = vCam_Solid.targetTexture;
-        rt_Softbody = vCam_Softbody.targetTexture;
-
         vCam_Solid.gameObject.SetActive(true);
         vCam_Softbody.gameObject.SetActive(true);
-        //rt_solid = Boot.Instance.moduleCamera.SaveCameraSolid.targetTexture;
-        //rt_Softbody = Boot.Instance.moduleCamera.SaveCameraSoftBody.targetTexture;
+        rt_solid = vCam_Solid.targetTexture;
+        rt_Softbody = vCam_Softbody.targetTexture;
     }
     public override void Exit()
     {
@@ -68,6 +65,7 @@ public class FsmState_Record_Process : FsmState_Record
             modelName = module.GetModelName();
             frameIndex = -1;
             time = duration;
+            return;
         }
 
         NeedSave = true;
