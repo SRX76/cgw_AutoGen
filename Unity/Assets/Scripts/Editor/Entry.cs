@@ -14,7 +14,8 @@ public class Entry
     static readonly string RootPath_Mesh = "Assets/Res/model";
     static readonly string RootPath_Prefab = "Assets/Res/Prefabs";
     static readonly string RootPath_BP = "Assets/Res/BP";
-    static readonly string Config_BPFile = "Config/bps.txt";
+    static readonly string RootPath_Config = "Config";
+    static readonly string Config_BPFile = "bps.txt";
 
     [MenuItem("Tools/Entry")]
     static void AutoEntry()
@@ -32,11 +33,12 @@ public class Entry
                 sb.AppendLine(GetBPFile(file));
             }
         }
-        File.WriteAllText(Config_BPFile, sb.ToString());
+
+        string cfgBPfile = $"{RootPath_Config}/{Config_BPFile}";
+        File.WriteAllText(cfgBPfile, sb.ToString());
 
         EditorApplication.isPlaying = true;
         BeginRecorder();
-        //RecorderDemo.AutoRecorder();
     }
     [MenuItem("Tools/创建配置文件")]
     static void GenConfig()
@@ -54,7 +56,7 @@ public class Entry
     }
     static void CheackFolderPath()
     {
-        var list = new List<string>() { RootPath_Mesh, RootPath_BP };
+        var list = new List<string>() { RootPath_Mesh, RootPath_BP, RootPath_Config };
         foreach (var folder in list)
         {
             if (!Directory.Exists(folder))
@@ -81,7 +83,8 @@ public class Entry
                 sb.AppendLine(bpFile);
             }
         }
-        File.WriteAllText(Config_BPFile, sb.ToString());
+        string cfgBPfile = $"{RootPath_Config}/{Config_BPFile}";
+        File.WriteAllText(cfgBPfile, sb.ToString());
         BeginRecorder();
         //RecorderDemo.AutoRecorder();
     }
