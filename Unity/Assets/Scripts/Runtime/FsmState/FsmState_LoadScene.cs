@@ -47,13 +47,12 @@ public class FsmState_LoadScene : FsmStateBase
         Debug.LogError($"所有组合录制完成，准备退出流程");
 #if UNITY_EDITOR
         Debug.LogError($"循环结束，主动关闭unity工程");
-        Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
         //EditorApplication.Exit(0);
 #else
-        Application.Quit();
-
+        Application.Quit(0);
 #endif
-        //Boot.Instance.moduleSoftBody.MoveNextGO();
+
     }
 
     void OnMeshLoopFinished()
