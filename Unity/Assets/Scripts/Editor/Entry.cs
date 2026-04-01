@@ -199,6 +199,7 @@ public class Entry
         }
         bp.inputMesh = meshFilter.sharedMesh;
         bp.scale = meshFilter.transform.localScale;
+        bp.rotation = meshFilter.transform.localRotation;
         bp.surfaceSamplingMode = ObiSoftbodySurfaceBlueprint.SurfaceSamplingMode.Vertices;
         bp.surfaceResolution = 9;
         bp.volumeSamplingMode = ObiSoftbodySurfaceBlueprint.VolumeSamplingMode.None;

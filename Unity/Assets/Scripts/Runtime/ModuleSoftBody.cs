@@ -131,6 +131,7 @@ public class ModuleSoftBody : SingleModule<ModuleSoftBody>
             //创建征程模型
             var go = GameObject.Instantiate(GoPfb, CurGoSoftBody.transform);
             go.transform.position = pos;
+            go.transform.localRotation = CurBP.rotation;
             go.SetActive(true);
             CurGoMesh = go;
 
