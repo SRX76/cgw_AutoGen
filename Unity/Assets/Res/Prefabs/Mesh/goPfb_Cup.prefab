@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3893829315200212747}
   - component: {fileID: 2335546671803670428}
   - component: {fileID: 1913997108350754023}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: goPfb_Cup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
