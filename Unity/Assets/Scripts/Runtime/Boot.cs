@@ -14,6 +14,7 @@ public class Boot : MonoBehaviour
     public FsmMachine fsmMachine { get; private set; }
     public FsmMachine fsmMachine_Recorder { get; private set; }
 
+    public bool SkipRecorder;
 
     public ObiSolver obiSolver;
     public GameObject camRoot;

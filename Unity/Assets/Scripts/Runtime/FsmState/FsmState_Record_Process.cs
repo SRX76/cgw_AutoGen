@@ -6,7 +6,8 @@ public class FsmState_Record_Process : FsmState_Record
     int curIndex;
     int maxCount;
     float time = 0;
-    float duration = 3f;
+    float duration = 4f;
+    int frameCount = 30;
     int frameIndex;
     private string modelName;
 
@@ -52,7 +53,8 @@ public class FsmState_Record_Process : FsmState_Record
 
     public override void Update(float dtTime)
     {
-        if (time <= 0)
+        //if (time <= 0)
+        if (frameIndex >= frameCount)
         {
             //需要切换模型
             if (!module.MoveNextGO())
@@ -71,7 +73,6 @@ public class FsmState_Record_Process : FsmState_Record
         NeedSave = true;
         time -= dtTime;
         frameIndex++;
-
     }
 
     string GetImageName_Solid()
@@ -86,7 +87,7 @@ public class FsmState_Record_Process : FsmState_Record
 
     void OnFrameEnd()
     {
-        if (!NeedSave)
+        if (!NeedSave || Boot.Instance.SkipRecorder)
         {
             return;
         }
