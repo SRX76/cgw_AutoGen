@@ -252,7 +252,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -278,13 +278,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0014859259, y: -0.9935349, z: 0.11275984, w: 0.013092598}
-  m_LocalPosition: {x: -33.48, y: 5.66, z: -12.8}
+  m_LocalRotation: {x: -0.044665508, y: 0, z: 0, w: 0.999002}
+  m_LocalPosition: {x: -0, y: 0, z: 1.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 12.95, y: 541.51, z: 0}
+  m_Father: {fileID: 341992984}
+  m_LocalEulerAnglesHint: {x: -5.12, y: 720, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +429,8 @@ Transform:
   m_LocalPosition: {x: -33.48, y: 5.66, z: -12.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 330585546}
   m_Father: {fileID: 8801140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367378114
@@ -457,7 +458,7 @@ Transform:
   m_GameObject: {fileID: 367378114}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.4, y: 3.578, z: -22.39}
+  m_LocalPosition: {x: -33.4, y: 3.388, z: -22.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -610,7 +611,7 @@ Transform:
   m_GameObject: {fileID: 631276909}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.8548, y: 2.73, z: -21.8919}
+  m_LocalPosition: {x: -33.8548, y: 2.51, z: -21.8919}
   m_LocalScale: {x: 1.0425478, y: 1, z: 0.8250858}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8263,7 +8264,6 @@ MeshRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 330585546}
   - {fileID: 1243428356}
   - {fileID: 832575519}
   - {fileID: 543450651619145458}
