@@ -103,11 +103,12 @@ MonoBehaviour:
     serializedContents: 
     m_AlignBytes: 16
   groupID: 0
-  m_CollisionMaterial: {fileID: 0}
+  m_CollisionMaterial: {fileID: 11400000, guid: 56297c6e785b44eb28e469b62cedc016,
+    type: 2}
   m_SurfaceCollisions: 0
   m_MassScale: 1
   m_SoftbodyBlueprint: {fileID: 0}
-  m_SelfCollisions: 0
+  m_SelfCollisions: 1
   m_DirectionalCollisions: 0
   centerBatch: -1
   centerShape: -1
