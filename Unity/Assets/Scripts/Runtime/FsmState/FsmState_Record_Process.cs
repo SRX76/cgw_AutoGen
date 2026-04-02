@@ -20,6 +20,7 @@ public class FsmState_Record_Process : FsmState_Record
     private Camera vCam_Softbody;
     private RenderTexture rt_solid;
     private RenderTexture rt_Softbody;
+    private bool IsSoftBodyMode;
 
     public FsmState_Record_Process(string sceneName)
     {
@@ -43,6 +44,7 @@ public class FsmState_Record_Process : FsmState_Record
         vCam_Softbody.gameObject.SetActive(true);
         rt_solid = vCam_Solid.targetTexture;
         rt_Softbody = vCam_Softbody.targetTexture;
+        IsSoftBodyMode = true;
     }
     public override void Exit()
     {
@@ -54,17 +56,29 @@ public class FsmState_Record_Process : FsmState_Record
     public override void Update(float dtTime)
     {
         //if (time <= 0)
-        if (frameIndex >= frameCount)
+        if (frameIndex >= frameCount && time <= 0)
         {
-            //需要切换模型
-            if (!module.MoveNextGO())
+            if (IsSoftBodyMode)
             {
-                Debug.Log($"加载模型失败,可能是模型加载循环完成了");
-                return;
+                //需要切换模型
+                if (!module.MoveNextGO())
+                {
+                    Debug.Log($"加载模型失败,可能是模型加载循环完成了");
+                    return;
+                }
+                IsSoftBodyMode = false;
+                module.CurGoSoftBody.SetActive(false);
+                module.CurGoMesh.SetActive(true);
+                modelName = module.GetModelName();
+            }
+            else
+            {
+                module.CurGoSoftBody.SetActive(true);
+                module.CurGoMesh.SetActive(false);
+                IsSoftBodyMode = true;
             }
 
             //加载模型，录制时间
-            modelName = module.GetModelName();
             frameIndex = -1;
             time = duration;
             return;
@@ -73,6 +87,9 @@ public class FsmState_Record_Process : FsmState_Record
         NeedSave = true;
         time -= dtTime;
         frameIndex++;
+
+        vCam_Solid?.gameObject.SetActive(!IsSoftBodyMode);
+        vCam_Softbody?.gameObject.SetActive(IsSoftBodyMode);
     }
 
     string GetImageName_Solid()
@@ -92,11 +109,17 @@ public class FsmState_Record_Process : FsmState_Record
             return;
         }
         NeedSave = false;
-        string solidName = GetImageName_Solid();
-        string softbodyName = GetImageName_SoftBody();
         //Debug.LogError($"开启录制:{solidName}\n{softbodyName}\n");
-        ModuleRecorder.Save(rt_solid, solidName);
-        ModuleRecorder.Save(rt_Softbody, softbodyName);
+        if (IsSoftBodyMode)
+        {
+            string softbodyName = GetImageName_SoftBody();
+            ModuleRecorder.Save(rt_Softbody, softbodyName);
+        }
+        else
+        {
+            string solidName = GetImageName_Solid();
+            ModuleRecorder.Save(rt_solid, solidName);
+        }
     }
 
 

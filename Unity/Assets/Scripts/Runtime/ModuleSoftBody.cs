@@ -128,13 +128,12 @@ public class ModuleSoftBody : SingleModule<ModuleSoftBody>
             softbody.softbodyBlueprint = CurBP;
             CurGoSoftBody.SetActive(true);
 
-            //创建征程模型
-            var go = GameObject.Instantiate(GoPfb, CurGoSoftBody.transform);
+            //创建正常模型
+            var go = GameObject.Instantiate(GoPfb, root);
             go.transform.position = pos;
             go.transform.localRotation = CurBP.rotation;
-            go.SetActive(true);
             CurGoMesh = go;
-
+            CurGoMesh.SetActive(true);
         }
     }
 
